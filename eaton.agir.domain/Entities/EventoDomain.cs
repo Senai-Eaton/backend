@@ -10,11 +10,15 @@ namespace eaton.agir.domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string Nome { get; set; }
+        [Required]
         public string Descricao { get; set; }
+        [Required]
         public DateTime DataHora { get; set; }
+        [Required]
         public Endereco Local { get; set; }
-        public List<Int32> Confirmados { get; set; }
+        
         
     }
 }

@@ -317,11 +317,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
+      "projectUniqueName": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
       "projectName": "eaton.agir.domain",
-      "projectPath": "c:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
+      "projectPath": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
       "packagesPath": "C:\\Users\\CodeXP\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\obj\\",
+      "outputPath": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

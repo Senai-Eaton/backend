@@ -12,9 +12,11 @@ namespace eaton.agir.domain.Entities
         public string  email { get; set; }
         [DataType(DataType.Password)]
         public string senha { get; set; }
-        
+        [Required]
         public string foto {get;set;}
+        [Required]
         public Endereco Endereco { get; set; }
+        [Required]
         public string Token{get;set;}
         
     }

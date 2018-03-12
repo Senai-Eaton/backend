@@ -1,0 +1,15 @@
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.webApi.deps.json
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.webApi.runtimeconfig.json
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.webApi.runtimeconfig.dev.json
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.webApi.dll
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.webApi.pdb
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.csprojResolveAssemblyReference.cache
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.csproj.CoreCompileInputs.cache
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.AssemblyInfoInputs.cache
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.AssemblyInfo.cs
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.dll
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\obj\Debug\netcoreapp2.0\eaton.agir.webApi.pdb
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.domain.dll
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.repository.dll
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.repository.pdb
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.domain.pdb
