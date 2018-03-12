@@ -3,5 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0-preview1-final" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0-preview1-final" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eaton.agir.domain\eaton.agir.domain.csproj" />
+  </ItemGroup>
 
 </Project>
