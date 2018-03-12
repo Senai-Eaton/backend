@@ -15,5 +15,6 @@ namespace eaton.agir.domain.Entities
         public DateTime DataHora { get; set; }
         public Endereco Local { get; set; }
         public List<Int32> Confirmados { get; set; }
+        
     }
 }

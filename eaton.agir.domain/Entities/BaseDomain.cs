@@ -15,6 +15,7 @@ namespace eaton.agir.domain.Entities
         
         public string foto {get;set;}
         public Endereco Endereco { get; set; }
+        public string Token{get;set;}
         
     }
 }
