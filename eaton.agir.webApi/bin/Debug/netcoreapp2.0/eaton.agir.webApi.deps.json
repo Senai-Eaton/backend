@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "0f1ac8265afb54d0886e1a7b8d1aa84bec4f4ba8"
+    "signature": "c0a2ad9163fc4313c4a81c8ce7eca7295d3c9099"
   },
   "compilationOptions": {
     "defines": [
@@ -26,6 +26,7 @@
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "2.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
+          "Microsoft.EntityFrameworkCore.Tools.DotNet": "2.0.0-preview1-final",
           "Microsoft.NETCore.App": "2.0.0",
           "eaton.agir.repository": "1.0.0"
         },
@@ -1670,6 +1671,18 @@
       "Microsoft.EntityFrameworkCore.Tools/2.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": "2.0.0"
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools.DotNet/2.0.0-preview1-final": {
+        "dependencies": {
+          "Microsoft.NETCore.App": "2.0.0",
+          "Newtonsoft.Json": "10.0.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/dotnet-ef.dll": {}
+        },
+        "compile": {
+          "lib/netcoreapp2.0/dotnet-ef.dll": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/2.0.0": {
@@ -4773,6 +4786,13 @@
       "sha512": "sha512-ILVI7sbnD0Pgf6B90AL3RiRdq+XRXEG4VnvuD75Fluv6p5PbYfU2tQP2VlL0oAFCVhihSgSWIQHtDjUFEE0+nw==",
       "path": "microsoft.entityframeworkcore.tools/2.0.0",
       "hashPath": "microsoft.entityframeworkcore.tools.2.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools.DotNet/2.0.0-preview1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-d7lHhNIB9vV3X2uw86GlF+iqslquk9KgdVzff2u84YDTYNF/3Svsk7mbIPIOyGiz/ohlMBT5NZwVTHaDsaAWSw==",
+      "path": "microsoft.entityframeworkcore.tools.dotnet/2.0.0-preview1-final",
+      "hashPath": "microsoft.entityframeworkcore.tools.dotnet.2.0.0-preview1-final.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/2.0.0": {
       "type": "package",

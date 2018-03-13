@@ -4,6 +4,9 @@ using System.Linq;
 using eaton.agir.domain.Contracts;
 using eaton.agir.repository.Context;
 using Microsoft.EntityFrameworkCore;
+using eaton.agir.domain.Entities;
+
+
 
 namespace eaton.agir.repository.Repositories
 {

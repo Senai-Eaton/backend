@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eaton.agir.domain.Contracts;
 using eaton.agir.repository.Context;
+using eaton.agir.repository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +32,10 @@ namespace eaton.agir.webApi
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-             
+            
+            
+            
+              services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             
         }
 
