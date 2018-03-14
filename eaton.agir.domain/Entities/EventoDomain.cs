@@ -16,8 +16,9 @@ namespace eaton.agir.domain.Entities
         public string Descricao { get; set; }
         [Required]
         public DateTime DataHora { get; set; }
-        [Required]
+        [ForeignKey("localId")]
         public Endereco Local { get; set; }
+        public int localId{get;set;}
         
         
     }

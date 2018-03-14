@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eaton.agir.domain.Entities
 {
@@ -13,8 +14,9 @@ namespace eaton.agir.domain.Entities
         public string Cpf { get; set; }
         [Required]
         public string Profissao{ get; set; }
-        [Required]
+        [ForeignKey("areaId")]
         public AreaInteresseDomain Area{get;set;}
+        public int areaId{get;set;}
 
 
 

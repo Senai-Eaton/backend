@@ -11,9 +11,10 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    partial class AgirContextModelSnapshot : ModelSnapshot
+    [Migration("20180314230912_Terceiraversao")]
+    partial class Terceiraversao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -30,6 +30,7 @@ namespace eaton.agir.webApi.Controllers
             else 
             return NotFound();
         }
+        
         [HttpPost]
         public IActionResult Cadastrar([FromBody]AreaAtuacaoDomain area){
             try{
@@ -38,6 +39,7 @@ namespace eaton.agir.webApi.Controllers
             }catch(System.Exception ex){
                 return BadRequest(ex.Message);
             }
+
         }
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id,[FromBody]AreaAtuacaoDomain area){
