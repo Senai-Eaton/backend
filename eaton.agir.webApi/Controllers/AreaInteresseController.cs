@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
+   [Route("api/[controller]")]
     public class AreaInteresseController:Controller
     {
         
