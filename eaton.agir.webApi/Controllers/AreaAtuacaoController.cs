@@ -39,11 +39,11 @@ namespace eaton.agir.webApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Atualizar(int id,[FromBody]AreaAtuacaoDomain area){
             if (area==null ||area.Id !=id){
-                return BadRequest();
-            }
+                 return BadRequest();
+             }
             var area1 =_areaAtuacaoRepository.BuscarPorId(id);
             if(area1== null){
                 return NotFound();
