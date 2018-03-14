@@ -55,7 +55,7 @@ namespace eaton.agir.webApi.Controllers
             area1.Id= area.Id;
             area1.Nome=area.Nome;
             var rs= _areaInteresseRepository.Atualizar(area1);
-            if (rs>0) return Ok();
+            if (rs>0) return Ok(area1);
             else return BadRequest();
 
 
