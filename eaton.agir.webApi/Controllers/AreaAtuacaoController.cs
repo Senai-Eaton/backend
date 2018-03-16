@@ -14,12 +14,11 @@ namespace eaton.agir.webApi.Controllers
         [HttpGet]
         public IActionResult GetAction(){
             try{
+                //new string[]{"VoluntariosEventos.Voluntario"})
                 return Ok(_areaAtuacaoRepository.Listar());
-
             }catch(System.Exception ex){
                 return BadRequest(ex.Message);
             }
-            
         }
 
         [HttpGet("{id}")]

@@ -171,6 +171,26 @@ namespace eaton.agir.repository.Migrations
                     b.ToTable("Voluntarios");
                 });
 
+            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntariosEventosDomain", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Data");
+
+                    b.Property<int>("eventoId");
+
+                    b.Property<int>("voluntarioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("eventoId");
+
+                    b.HasIndex("voluntarioId");
+
+                    b.ToTable("VoluntariosEventos");
+                });
+
             modelBuilder.Entity("eaton.agir.domain.Entities.Empresa", b =>
                 {
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaAtuacao")
@@ -206,6 +226,19 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "Area")
                         .WithMany()
                         .HasForeignKey("areaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntariosEventosDomain", b =>
+                {
+                    b.HasOne("eaton.agir.domain.Entities.EventoDomain", "Evento")
+                        .WithMany("VoluntariosEvento")
+                        .HasForeignKey("eventoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("eaton.agir.domain.Entities.VoluntarioDomain", "Voluntario")
+                        .WithMany("VoluntariosEventos")
+                        .HasForeignKey("voluntarioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

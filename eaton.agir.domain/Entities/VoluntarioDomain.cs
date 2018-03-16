@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,8 +19,6 @@ namespace eaton.agir.domain.Entities
         public AreaInteresseDomain Area{get;set;}
         public int areaId{get;set;}
 
-
-
-        
+        public ICollection<VoluntariosEventosDomain> VoluntariosEventos { get; set; }        
     }
 }
