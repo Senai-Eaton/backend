@@ -66,7 +66,8 @@ namespace eaton.agir.webApi.Controllers
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id){
-            var areas=_areaAtuacaoRepository.BuscarPorId(id);
+            try{
+                var areas=_areaAtuacaoRepository.BuscarPorId(id);
             if(areas==null){
                 return NotFound ();
             }
@@ -75,6 +76,10 @@ namespace eaton.agir.webApi.Controllers
             if (rs>0) return Ok();
             else 
            return BadRequest();
+            
+            }catch(System.Exception ex){
+            return BadRequest(ex.Message);
+        }      
             
             
         }
