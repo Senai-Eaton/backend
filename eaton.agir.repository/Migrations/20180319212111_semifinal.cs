@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eaton.agir.repository.Migrations
 {
-    public partial class setimaversao : Migration
+    public partial class semifinal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,19 +53,46 @@ namespace eaton.agir.repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Voluntarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Cpf = table.Column<string>(nullable: false),
+                    DataNasc = table.Column<DateTime>(nullable: false),
+                    Nome = table.Column<string>(nullable: false),
+                    Profissao = table.Column<string>(nullable: false),
+                    Token = table.Column<string>(nullable: false),
+                    areaId = table.Column<int>(nullable: false),
+                    email = table.Column<string>(nullable: true),
+                    foto = table.Column<string>(nullable: false),
+                    senha = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Voluntarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Voluntarios_AreaInteresses_areaId",
+                        column: x => x.areaId,
+                        principalTable: "AreaInteresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Empresas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AreaAtuacaoId = table.Column<int>(nullable: false),
-                    AreaAtuacaoiId = table.Column<int>(nullable: true),
                     AreaInteresseId = table.Column<int>(nullable: false),
                     Cnpj = table.Column<string>(nullable: false),
-                    EnderecoId = table.Column<int>(nullable: false),
                     RazaoSocial = table.Column<string>(nullable: false),
                     Token = table.Column<string>(nullable: false),
                     email = table.Column<string>(nullable: true),
+                    endeId = table.Column<int>(nullable: false),
+                    enderecoId = table.Column<int>(nullable: false),
                     foto = table.Column<string>(nullable: false),
                     senha = table.Column<string>(nullable: true)
                 },
@@ -73,8 +100,8 @@ namespace eaton.agir.repository.Migrations
                 {
                     table.PrimaryKey("PK_Empresas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Empresas_AreaAtuacaos_AreaAtuacaoiId",
-                        column: x => x.AreaAtuacaoiId,
+                        name: "FK_Empresas_AreaAtuacaos_AreaAtuacaoId",
+                        column: x => x.AreaAtuacaoId,
                         principalTable: "AreaAtuacaos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -85,8 +112,8 @@ namespace eaton.agir.repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Empresas_enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
+                        name: "FK_Empresas_enderecos_endeId",
+                        column: x => x.endeId,
                         principalTable: "enderecos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -110,40 +137,6 @@ namespace eaton.agir.repository.Migrations
                         name: "FK_Eventos_enderecos_localId",
                         column: x => x.localId,
                         principalTable: "enderecos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Voluntarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Cpf = table.Column<string>(nullable: false),
-                    DataNasc = table.Column<DateTime>(nullable: false),
-                    EnderecoId = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(nullable: false),
-                    Profissao = table.Column<string>(nullable: false),
-                    Token = table.Column<string>(nullable: false),
-                    areaId = table.Column<int>(nullable: false),
-                    email = table.Column<string>(nullable: true),
-                    foto = table.Column<string>(nullable: false),
-                    senha = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Voluntarios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Voluntarios_enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
-                        principalTable: "enderecos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Voluntarios_AreaInteresses_areaId",
-                        column: x => x.areaId,
-                        principalTable: "AreaInteresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -176,9 +169,9 @@ namespace eaton.agir.repository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Empresas_AreaAtuacaoiId",
+                name: "IX_Empresas_AreaAtuacaoId",
                 table: "Empresas",
-                column: "AreaAtuacaoiId");
+                column: "AreaAtuacaoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Empresas_AreaInteresseId",
@@ -186,19 +179,14 @@ namespace eaton.agir.repository.Migrations
                 column: "AreaInteresseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Empresas_EnderecoId",
+                name: "IX_Empresas_endeId",
                 table: "Empresas",
-                column: "EnderecoId");
+                column: "endeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Eventos_localId",
                 table: "Eventos",
                 column: "localId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Voluntarios_EnderecoId",
-                table: "Voluntarios",
-                column: "EnderecoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Voluntarios_areaId",

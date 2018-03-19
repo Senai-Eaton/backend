@@ -66,6 +66,10 @@ namespace eaton.agir.repository.Migrations
 
                     b.Property<string>("email");
 
+                    b.Property<int>("endeId");
+
+                    b.Property<int>("enderecoId");
+
                     b.Property<string>("foto")
                         .IsRequired();
 
@@ -76,6 +80,8 @@ namespace eaton.agir.repository.Migrations
                     b.HasIndex("AreaAtuacaoId");
 
                     b.HasIndex("AreaInteresseId");
+
+                    b.HasIndex("endeId");
 
                     b.ToTable("Empresas");
                 });
@@ -191,6 +197,11 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "AreaInteresse")
                         .WithMany()
                         .HasForeignKey("AreaInteresseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("eaton.agir.domain.Entities.Endereco", "endereco")
+                        .WithMany()
+                        .HasForeignKey("endeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

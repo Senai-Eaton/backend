@@ -11,8 +11,8 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    [Migration("20180319181513_setimaversao")]
-    partial class setimaversao
+    [Migration("20180319212111_semifinal")]
+    partial class semifinal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,14 +54,10 @@ namespace eaton.agir.repository.Migrations
 
                     b.Property<int>("AreaAtuacaoId");
 
-                    b.Property<int?>("AreaAtuacaoiId");
-
                     b.Property<int>("AreaInteresseId");
 
                     b.Property<string>("Cnpj")
                         .IsRequired();
-
-                    b.Property<int>("EnderecoId");
 
                     b.Property<string>("RazaoSocial")
                         .IsRequired();
@@ -71,6 +67,10 @@ namespace eaton.agir.repository.Migrations
 
                     b.Property<string>("email");
 
+                    b.Property<int>("endeId");
+
+                    b.Property<int>("enderecoId");
+
                     b.Property<string>("foto")
                         .IsRequired();
 
@@ -78,11 +78,11 @@ namespace eaton.agir.repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AreaAtuacaoiId");
+                    b.HasIndex("AreaAtuacaoId");
 
                     b.HasIndex("AreaInteresseId");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("endeId");
 
                     b.ToTable("Empresas");
                 });
@@ -143,8 +143,6 @@ namespace eaton.agir.repository.Migrations
 
                     b.Property<DateTime>("DataNasc");
 
-                    b.Property<int>("EnderecoId");
-
                     b.Property<string>("Nome")
                         .IsRequired();
 
@@ -164,8 +162,6 @@ namespace eaton.agir.repository.Migrations
                     b.Property<string>("senha");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnderecoId");
 
                     b.HasIndex("areaId");
 
@@ -196,7 +192,7 @@ namespace eaton.agir.repository.Migrations
                 {
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaAtuacao")
                         .WithMany()
-                        .HasForeignKey("AreaAtuacaoiId")
+                        .HasForeignKey("AreaAtuacaoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "AreaInteresse")
@@ -204,9 +200,9 @@ namespace eaton.agir.repository.Migrations
                         .HasForeignKey("AreaInteresseId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("eaton.agir.domain.Entities.Endereco", "Endereco")
+                    b.HasOne("eaton.agir.domain.Entities.Endereco", "endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId")
+                        .HasForeignKey("endeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -220,11 +216,6 @@ namespace eaton.agir.repository.Migrations
 
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioDomain", b =>
                 {
-                    b.HasOne("eaton.agir.domain.Entities.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "Area")
                         .WithMany()
                         .HasForeignKey("areaId")

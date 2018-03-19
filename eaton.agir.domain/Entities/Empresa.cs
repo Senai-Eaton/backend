@@ -13,6 +13,9 @@ namespace eaton.agir.domain.Entities
         public int AreaAtuacaoId { get; set; }
         [ForeignKey("AreaInteresseId")]
         public AreaInteresseDomain AreaInteresse { get; set; }
+        [ForeignKey("endeId")]
+        public Endereco endereco{get;set;}
+        public int endeId{get;set;}
         public int AreaInteresseId { get; set; }
         [Required]
         public string Cnpj { get; set; }
