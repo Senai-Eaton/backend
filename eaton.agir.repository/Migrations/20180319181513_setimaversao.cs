@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eaton.agir.repository.Migrations
 {
-    public partial class reloadversao : Migration
+    public partial class setimaversao : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,13 +83,13 @@ namespace eaton.agir.repository.Migrations
                         column: x => x.AreaInteresseId,
                         principalTable: "AreaInteresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Empresas_enderecos_EnderecoId",
                         column: x => x.EnderecoId,
                         principalTable: "enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,7 +111,7 @@ namespace eaton.agir.repository.Migrations
                         column: x => x.localId,
                         principalTable: "enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,13 +139,13 @@ namespace eaton.agir.repository.Migrations
                         column: x => x.EnderecoId,
                         principalTable: "enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Voluntarios_AreaInteresses_areaId",
                         column: x => x.areaId,
                         principalTable: "AreaInteresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,13 +166,13 @@ namespace eaton.agir.repository.Migrations
                         column: x => x.eventoId,
                         principalTable: "Eventos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_VoluntariosEventos_Voluntarios_voluntarioId",
                         column: x => x.voluntarioId,
                         principalTable: "Voluntarios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

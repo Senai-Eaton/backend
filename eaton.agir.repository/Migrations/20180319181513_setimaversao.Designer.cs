@@ -11,8 +11,8 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    [Migration("20180316005221_reloadversao")]
-    partial class reloadversao
+    [Migration("20180319181513_setimaversao")]
+    partial class setimaversao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,17 +196,18 @@ namespace eaton.agir.repository.Migrations
                 {
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaAtuacao")
                         .WithMany()
-                        .HasForeignKey("AreaAtuacaoiId");
+                        .HasForeignKey("AreaAtuacaoiId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "AreaInteresse")
                         .WithMany()
                         .HasForeignKey("AreaInteresseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.EventoDomain", b =>
@@ -214,7 +215,7 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.Endereco", "Local")
                         .WithMany()
                         .HasForeignKey("localId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioDomain", b =>
@@ -222,12 +223,12 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "Area")
                         .WithMany()
                         .HasForeignKey("areaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntariosEventosDomain", b =>
@@ -235,12 +236,12 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.EventoDomain", "Evento")
                         .WithMany("VoluntariosEvento")
                         .HasForeignKey("eventoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.VoluntarioDomain", "Voluntario")
                         .WithMany("VoluntariosEventos")
                         .HasForeignKey("voluntarioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

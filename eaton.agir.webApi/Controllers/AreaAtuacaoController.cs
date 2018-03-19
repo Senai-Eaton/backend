@@ -23,11 +23,14 @@ namespace eaton.agir.webApi.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetAction(int id){
-            var area =_areaAtuacaoRepository.BuscarPorId(id);
+           try{ var area =_areaAtuacaoRepository.BuscarPorId(id);
             if(area != null)
             return Ok(area);
             else 
             return NotFound();
+        }catch(System.Exception ex){
+            return BadRequest(ex.Message);
+        }
         }
         
         [HttpPost]
@@ -42,6 +45,7 @@ namespace eaton.agir.webApi.Controllers
         }
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id,[FromBody]AreaAtuacaoDomain area){
+              try{
             if (area==null ||area.Id !=id){
                  return BadRequest();
              }
@@ -55,15 +59,13 @@ namespace eaton.agir.webApi.Controllers
             var rs= _areaAtuacaoRepository.Atualizar(area1);
             if (rs>0) return Ok(area1);
             else return BadRequest();
+            }catch(System.Exception ex){
+                return BadRequest(ex.Message);
 
-
-
-
-
-
+                }
         }
         [HttpDelete("{id}")]
-        public IActionResult delete(int id){
+        public IActionResult Delete(int id){
             var areas=_areaAtuacaoRepository.BuscarPorId(id);
             if(areas==null){
                 return NotFound ();

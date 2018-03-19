@@ -8,7 +8,7 @@ namespace eaton.agir.domain.Entities
         [Required]
         public string RazaoSocial { get; set; }
 
-        [ForeignKey("AreaAtuacaoiId")]
+        [ForeignKey(" AreaAtuacaoId")]
         public AreaAtuacaoDomain AreaAtuacao { get; set; }
         public int AreaAtuacaoId { get; set; }
         [ForeignKey("AreaInteresseId")]

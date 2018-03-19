@@ -1,4 +1,5 @@
 
+using System.Linq;
 using eaton.agir.domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,16 +22,22 @@ namespace eaton.agir.repository.Context
         public DbSet<VoluntariosEventosDomain> VoluntariosEventos{get;set;}
         protected  override void OnModelCreating (ModelBuilder modelBuilder){
            
-        modelBuilder.Entity<AreaAtuacaoDomain>().ToTable("AreaAtuacaos");
-        modelBuilder.Entity<AreaInteresseDomain>().ToTable("AreaInteresses");
-        modelBuilder.Entity<Endereco>().ToTable("enderecos");
-        modelBuilder.Entity<Empresa>().ToTable("Empresas");
-        modelBuilder.Entity<EventoDomain>().ToTable("Eventos");
-        modelBuilder.Entity<VoluntarioDomain>().ToTable("Voluntarios");
-        modelBuilder.Entity<VoluntariosEventosDomain>().ToTable("VoluntariosEventos");
+           foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            
+            modelBuilder.Entity<AreaAtuacaoDomain>().ToTable("AreaAtuacaos");
+            modelBuilder.Entity<AreaInteresseDomain>().ToTable("AreaInteresses");
+            modelBuilder.Entity<Endereco>().ToTable("enderecos");
+            modelBuilder.Entity<Empresa>().ToTable("Empresas");
+            modelBuilder.Entity<EventoDomain>().ToTable("Eventos");
+            modelBuilder.Entity<VoluntarioDomain>().ToTable("Voluntarios");
+            modelBuilder.Entity<VoluntariosEventosDomain>().ToTable("VoluntariosEventos");
 
+            
 
-        base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
         
