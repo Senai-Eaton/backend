@@ -24,7 +24,7 @@ namespace eaton.agir.webApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetAction(int id){
             try{
-                var evento = _EventoRepository.BuscarPorId(id);
+                var evento = _EventoRepository.BuscarPorId(id,new string[]{"VoluntariosEventos.Voluntarios"});
                 if(evento != null) return Ok(evento);
                 else return NotFound();
 
@@ -65,6 +65,8 @@ namespace eaton.agir.webApi.Controllers
             try{
                 var eventos=_EventoRepository.BuscarPorId(id);
                 if(eventos==null)return NotFound();
+                var rs=_EventoRepository.Deletar(eventos);
+                 if(rs>0) return Ok();
                 else return BadRequest();
 
 
