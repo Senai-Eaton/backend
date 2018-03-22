@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace eaton.agir.webApi
 {
@@ -36,6 +37,27 @@ namespace eaton.agir.webApi
             
             
               services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+               services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info {
+                    Version = "V1",
+                    Title = "Agir API",
+                    Description = "Documentação de uso do projeto Agir API",
+                    TermsOfService = "None",
+                    Contact = new Contact{Name = "Lucas Lima", Email = "lucas-limagomes@hotmail.com", Url = "https://www.linkedin.com/in/lucas-lima-889237151/"}
+                });
+
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = System.IO.Path.Combine(basePath, "AlimenteSeBemAPI.xml");
+
+                c.IncludeXmlComments(xmlPath);
+            });
+             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+                {
+                   builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+               }));
+
             
         }
 
@@ -46,13 +68,14 @@ namespace eaton.agir.webApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("MyPolicy");
             app.UseMvc();
-            
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                });     
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            
         }
     }
 }

@@ -13,3 +13,4 @@ C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcorea
 C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.repository.dll
 C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.repository.pdb
 C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\Debug\netcoreapp2.0\eaton.agir.domain.pdb
+C:\Users\CodeXP\Projeto\eaton.agir.solution\eaton.agir.webApi\bin\DEBUG\netcoreapp2.0\AlimenteSeBemAPI.xml

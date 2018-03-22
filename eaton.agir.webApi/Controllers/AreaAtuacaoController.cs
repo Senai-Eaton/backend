@@ -11,6 +11,10 @@ namespace eaton.agir.webApi.Controllers
         public AreaAtuacaoController (IBaseRepository<AreaAtuacaoDomain>areaAtuacaoRepository) {
             _areaAtuacaoRepository=areaAtuacaoRepository;
         }
+        /// <summary>
+        /// Lista as Areas de atuação
+        /// </summary>
+        /// <returns>Retorna uma lista de Areas</returns>
         [HttpGet]
         public IActionResult GetAction(){
             try{
