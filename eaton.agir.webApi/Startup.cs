@@ -47,7 +47,7 @@ namespace eaton.agir.webApi
                 });
 
                 var basePath = AppContext.BaseDirectory;
-                var xmlPath = System.IO.Path.Combine(basePath, "AlimenteSeBemAPI.xml");
+                var xmlPath = System.IO.Path.Combine(basePath, "AgirAPI.xml");
 
                 c.IncludeXmlComments(xmlPath);
             });
