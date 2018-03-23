@@ -4,5 +4,11 @@
         <name>eaton.agir.webApi</name>
     </assembly>
     <members>
+        <member name="M:eaton.agir.webApi.Controllers.AreaAtuacaoController.GetAction">
+            <summary>
+            Lista as Areas de atuação
+            </summary>
+            <returns>Retorna uma lista de Areas</returns>
+        </member>
     </members>
 </doc>
