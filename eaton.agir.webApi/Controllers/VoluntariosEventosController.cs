@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/voluntarioseventos")]
     public class VoluntariosEventosController : Controller
     {
         public IBaseRepository<VoluntariosEventosDomain> _voluntarioEventoRepository;
@@ -17,7 +17,7 @@ namespace eaton.agir.webApi.Controllers
         {
             try
             {
-                return Ok(_voluntarioEventoRepository.Listar());
+                return Ok(_voluntarioEventoRepository.Listar(new string[]{"Voluntario","Evento"}));
 
             }
             catch (System.Exception ex)
@@ -30,7 +30,7 @@ namespace eaton.agir.webApi.Controllers
         {
             try
             {
-                var volu = _voluntarioEventoRepository.BuscarPorId(id);
+                var volu = _voluntarioEventoRepository.BuscarPorId(id,new string[]{"Voluntario","Evento"});
                 if (volu != null) return Ok(volu);
                 else return NotFound();
 

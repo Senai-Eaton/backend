@@ -35,10 +35,10 @@ namespace eaton.agir.repository.Repositories
         {
             try
             {
-                var chavePrimaria = _dbContext.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0];
+                var chavePrimaria = _dbContext.Model.FindEntityType(typeof(T)).FindPrimaryKey  ().Properties[0];
 
                 var query = _dbContext.Set<T>().AsQueryable();
-
+            
                 if(includes == null) return query.FirstOrDefault(e => EF.Property<int>(e, chavePrimaria.Name) == id);
 
                 foreach (var item in includes)

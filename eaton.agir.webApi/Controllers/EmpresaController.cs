@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/empresas")]
     public class EmpresaController:Controller
     {
         private IBaseRepository<Empresa> _empresaRepository;
@@ -14,7 +14,7 @@ namespace eaton.agir.webApi.Controllers
         }
         [HttpGet]
         public IActionResult GetAction(){
-            try{return Ok(_empresaRepository.Listar());
+            try{return Ok(_empresaRepository.Listar(new string[]{"endereco","AreaAtuacao","AreaInteresse"}));
 
             }catch(System.Exception ex){
                 return BadRequest(ex.Message);

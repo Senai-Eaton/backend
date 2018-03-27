@@ -11,6 +11,7 @@ namespace eaton.agir.domain.Entities
         [ForeignKey(" AreaAtuacaoId")]
         public AreaAtuacaoDomain AreaAtuacao { get; set; }
         public int AreaAtuacaoId { get; set; }
+        
         [ForeignKey("AreaInteresseId")]
         public AreaInteresseDomain AreaInteresse { get; set; }
         [ForeignKey("enderecoId")]

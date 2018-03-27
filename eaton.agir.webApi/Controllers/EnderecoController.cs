@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/enderecos")]
     public class EnderecoController: Controller
     {
         private IBaseRepository<Endereco>_enderecoRepository;

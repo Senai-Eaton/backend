@@ -8,7 +8,14 @@
             <summary>
             Lista as Areas de atuação
             </summary>
-            <returns>Retorna uma lista de Areas</returns>
+            <returns>Retorna um Json com as areas de atuação cadastradas</returns>
+        </member>
+        <member name="M:eaton.agir.webApi.Controllers.AreaAtuacaoController.GetAction(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

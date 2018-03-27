@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/eventos")]
     public class EventoController: Controller
     {
         private IBaseRepository<EventoDomain> _EventoRepository;
@@ -15,7 +15,7 @@ namespace eaton.agir.webApi.Controllers
         [HttpGet]
         public IActionResult GetAction(){
             try{
-                return Ok(_EventoRepository.Listar(new string[]{"VoluntariosEventos.Voluntarios"}));
+                return Ok(_EventoRepository.Listar(new string[]{"Local","VoluntariosEvento.Voluntario"}));
 
              }catch(System.Exception ex){
                 return BadRequest(ex.Message);
@@ -24,7 +24,7 @@ namespace eaton.agir.webApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetAction(int id){
             try{
-                var evento = _EventoRepository.BuscarPorId(id,new string[]{"VoluntariosEventos.Voluntarios"});
+                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","VoluntariosEvento.Voluntario"});
                 if(evento != null) return Ok(evento);
                 else return NotFound();
 

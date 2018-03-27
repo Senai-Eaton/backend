@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/atuacaos")]
     public class AreaAtuacaoController : Controller{
         private IBaseRepository<AreaAtuacaoDomain> _areaAtuacaoRepository;
 
@@ -14,7 +14,7 @@ namespace eaton.agir.webApi.Controllers
         /// <summary>
         /// Lista as Areas de atuação
         /// </summary>
-        /// <returns>Retorna uma lista de Areas</returns>
+        /// <returns>Retorna um Json com as areas de atuação cadastradas</returns>
         [HttpGet]
         public IActionResult GetAction(){
             try{
@@ -25,6 +25,11 @@ namespace eaton.agir.webApi.Controllers
             }
         }
 
+         /// <summary>
+         /// 
+         /// </summary>
+         /// <param name="id"></param>
+         /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetAction(int id){
            try{ var area =_areaAtuacaoRepository.BuscarPorId(id);
