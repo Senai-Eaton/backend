@@ -7,8 +7,8 @@ namespace eaton.agir.webApi.Controllers
     [Route("api/voluntarioseventos")]
     public class VoluntariosEventosController : Controller
     {
-        public IBaseRepository<VoluntariosEventosDomain> _voluntarioEventoRepository;
-        public VoluntariosEventosController(IBaseRepository<VoluntariosEventosDomain> voluntariosEventosRepository)
+        public IBaseRepository<VoluntarioEventoDomain> _voluntarioEventoRepository;
+        public VoluntariosEventosController(IBaseRepository<VoluntarioEventoDomain> voluntariosEventosRepository)
         {
             _voluntarioEventoRepository = voluntariosEventosRepository;
         }
@@ -42,7 +42,7 @@ namespace eaton.agir.webApi.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Cadastrar([FromBody]VoluntariosEventosDomain volunt)
+        public IActionResult Cadastrar([FromBody]VoluntarioEventoDomain volunt)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace eaton.agir.webApi.Controllers
             }
         }
         [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, [FromBody]VoluntariosEventosDomain voluntarios)
+        public IActionResult Atualizar(int id, [FromBody]VoluntarioEventoDomain voluntarios)
         {
             try
             {
@@ -64,9 +64,8 @@ namespace eaton.agir.webApi.Controllers
                 var volun = _voluntarioEventoRepository.BuscarPorId(id);
                 if (volun == null) return NotFound();
                 volun.Id = voluntarios.Id;
-                volun.eventoId = voluntarios.eventoId;
-                volun.voluntarioId = voluntarios.voluntarioId;
-                volun.Data = volun.Data;
+                volun.EventoId = voluntarios.EventoId;
+                volun.VoluntarioId = voluntarios.VoluntarioId;
 
                 var rs = _voluntarioEventoRepository.Atualizar(volun);
                 if (rs > 0) return Ok(volun);

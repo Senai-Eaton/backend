@@ -17,5 +17,94 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:eaton.agir.webApi.Controllers.UsuarioController.Autenticar(eaton.agir.webApi.ViewModels.Usuario.LoginViewModel)">
+             <summary>
+             Autentica o usuário
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /api/usuario/autenticar
+                 {
+                    "email": "email@email.com",
+                    "senha": "12345"
+                 }
+            
+             </remarks>
+             <returns>Retorna um usuário</returns>
+             <response code="201">Retorna os dados do usuário autenticado</response>
+             <response code="404">Retorna uma string com o erro</response> 
+             <response code="400">Retorna uma lista de erros</response> 
+        </member>
+        <member name="M:eaton.agir.webApi.Controllers.UsuarioController.CadastrarEmpresa(eaton.agir.domain.Entities.UsuarioDomain)">
+             <summary>
+             Autentica o usuário
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /api/usuario/cadastrarempresa
+                 {
+                     "email": "email@email.com",
+                     "senha": "12345",
+                     "foto" : "urldafoto",
+                     "tipousuario" : "Ong",
+                     "empresa":{
+                         "nome" : "nome da empresa",
+                         "descricao" : "descricao da empresa deve ter no minimo 50 caracteres (até 650 caracteres)",
+                         "razaosocial" : "nome da empresa",
+                         "areaatuacaoid" : 1,
+                         "cnpj" : "454.989.998/0001-54",
+                         "endereco" : {
+                             "logradouro" : "logradouro empresa",
+                             "numero" : "numero empresa",
+                             "bairro" : "bairro empresa",
+                             "cidade" : "cidade empresa",
+                             "estado" : "estado empresa",
+                             "cep" : "cep empresa"
+                         }
+                     }
+                 }
+             </remarks>
+             <returns>Retorna um usuário</returns>
+             <response code="201">Retorna os dados do usuário cadastrado</response>
+             <response code="404">Retorna uma string com o erro</response> 
+             <response code="400">Retorna uma lista de erros</response> 
+        </member>
+        <member name="M:eaton.agir.webApi.Controllers.UsuarioController.CadastrarVoluntario(eaton.agir.domain.Entities.UsuarioDomain)">
+             <summary>
+             Autentica o usuário
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /api/usuario/cadastrarvoluntario
+                 {
+                     "email": "email@email.com",
+                     "senha": "12345",
+                     "foto" : "urldafoto",
+                     "tipousuario" : "Voluntario",
+                     "voluntario":{
+                         "nome" : "nome da empresa",
+                         "datanasc" : "1978-10-28"               
+                         "cpf" : "543.653.765-665",
+                         "areainteresseid" : 1,
+                         "bio" : "Descrição da Bio",
+                         "endereco" : {
+                             "logradouro" : "logradouro empresa",
+                             "numero" : "numero empresa",
+                             "bairro" : "bairro empresa",
+                             "cidade" : "cidade empresa",
+                             "estado" : "estado empresa",
+                             "cep" : "cep empresa"
+                         }
+                     }
+                 }
+             </remarks>
+             <returns>Retorna um usuário</returns>
+             <response code="201">Retorna os dados do usuário cadastrado</response>
+             <response code="404">Retorna uma string com o erro</response> 
+             <response code="400">Retorna uma lista de erros</response> 
+        </member>
     </members>
 </doc>

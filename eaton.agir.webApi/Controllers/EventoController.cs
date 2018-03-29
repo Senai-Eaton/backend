@@ -50,7 +50,7 @@ namespace eaton.agir.webApi.Controllers
                 if (evento1==null) return NotFound();
                 evento1.Id=evento.Id;
                 evento1.Descricao=evento.Descricao;
-                evento1.localId=evento.localId;
+                evento1.LocalId=evento.LocalId;
                 evento1.Nome=evento.Nome;
                 evento1.DataHora=evento.DataHora;
                 var rs=_EventoRepository.Atualizar(evento1);
