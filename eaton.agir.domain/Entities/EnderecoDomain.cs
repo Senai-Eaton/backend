@@ -3,20 +3,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eaton.agir.domain.Entities
 {
-    public class Endereco
+    public class EnderecoDomain : BaseDomain
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+
         [Required]
         public string Logradouro { get; set; }
+
         [Required]
-        public int Numero { get; set; }
+        public string Numero { get; set; }
+        
         [Required]
         public string Bairro { get; set; }
+        
         [Required]
         public string Cidade { get; set; }
+        
         [Required]
-         public string Estado { get; set; }
+        public string Estado { get; set; }
+        
+        public string Cep { get; set; }
     }
 }

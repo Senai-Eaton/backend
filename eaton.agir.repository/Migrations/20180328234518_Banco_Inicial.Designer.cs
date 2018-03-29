@@ -11,9 +11,10 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    partial class AgirContextModelSnapshot : ModelSnapshot
+    [Migration("20180328234518_Banco_Inicial")]
+    partial class Banco_Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,8 +97,7 @@ namespace eaton.agir.repository.Migrations
                     b.Property<string>("Logradouro")
                         .IsRequired();
 
-                    b.Property<string>("Numero")
-                        .IsRequired();
+                    b.Property<int>("Numero");
 
                     b.HasKey("Id");
 
@@ -117,8 +117,6 @@ namespace eaton.agir.repository.Migrations
                         .IsRequired();
 
                     b.Property<int>("EmpresaId");
-
-                    b.Property<string>("Foto");
 
                     b.Property<int>("LocalId");
 
@@ -176,8 +174,6 @@ namespace eaton.agir.repository.Migrations
 
                     b.Property<DateTime>("DataNasc");
 
-                    b.Property<int>("EnderecoId");
-
                     b.Property<string>("Nome")
                         .IsRequired();
 
@@ -186,8 +182,6 @@ namespace eaton.agir.repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaInteresseId");
-
-                    b.HasIndex("EnderecoId");
 
                     b.HasIndex("UsuarioId")
                         .IsUnique();
@@ -251,11 +245,6 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaInteresse")
                         .WithMany()
                         .HasForeignKey("AreaInteresseId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("eaton.agir.domain.Entities.EnderecoDomain", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.UsuarioDomain", "Usuario")

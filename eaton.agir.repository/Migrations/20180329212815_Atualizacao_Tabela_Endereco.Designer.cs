@@ -11,9 +11,10 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    partial class AgirContextModelSnapshot : ModelSnapshot
+    [Migration("20180329212815_Atualizacao_Tabela_Endereco")]
+    partial class Atualizacao_Tabela_Endereco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +118,6 @@ namespace eaton.agir.repository.Migrations
                         .IsRequired();
 
                     b.Property<int>("EmpresaId");
-
-                    b.Property<string>("Foto");
 
                     b.Property<int>("LocalId");
 

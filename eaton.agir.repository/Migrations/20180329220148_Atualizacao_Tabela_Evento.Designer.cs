@@ -11,9 +11,10 @@ using System;
 namespace eaton.agir.repository.Migrations
 {
     [DbContext(typeof(AgirContext))]
-    partial class AgirContextModelSnapshot : ModelSnapshot
+    [Migration("20180329220148_Atualizacao_Tabela_Evento")]
+    partial class Atualizacao_Tabela_Evento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

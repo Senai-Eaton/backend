@@ -5,22 +5,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eaton.agir.domain.Entities
 {
-    public class EventoDomain
+    public class EventoDomain : BaseDomain
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+
         [Required]
         public string Nome { get; set; }
+
         [Required]
         public string Descricao { get; set; }
+        
+        public string Foto { get; set; }
+        
         [Required]
         public DateTime DataHora { get; set; }
 
-        [ForeignKey("localId")]
-        public Endereco Local { get; set; }
-        public int localId{get;set;}
+        [ForeignKey("LocalId")]
+        public virtual EnderecoDomain Local { get; set; }
+        public int LocalId{get;set;}
+
+        [ForeignKey("EmpresaId")]
+        public virtual EmpresaDomain Empresa { get; set; }
+        public int EmpresaId{get;set;}
         
-        public ICollection<VoluntariosEventosDomain> VoluntariosEvento { get; set; }
+        public virtual ICollection<VoluntarioEventoDomain> VoluntariosEventos { get; set; }
     }
 }
