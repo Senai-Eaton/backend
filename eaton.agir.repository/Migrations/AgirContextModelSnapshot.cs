@@ -25,66 +25,57 @@ namespace eaton.agir.repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AreaAtuacaos");
-                });
-
-            modelBuilder.Entity("eaton.agir.domain.Entities.AreaInteresseDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("DataCriacao");
 
                     b.Property<string>("Nome")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaInteresses");
+                    b.ToTable("AreaAtuacoes");
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.Empresa", b =>
+            modelBuilder.Entity("eaton.agir.domain.Entities.EmpresaDomain", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AreaAtuacaoId");
 
-                    b.Property<int>("AreaInteresseId");
-
                     b.Property<string>("Cnpj")
                         .IsRequired();
 
+                    b.Property<DateTime>("DataCriacao");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(650);
+
+                    b.Property<int>("EnderecoId");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(150);
+
                     b.Property<string>("RazaoSocial")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(150);
 
-                    b.Property<string>("Token")
-                        .IsRequired();
-
-                    b.Property<string>("email");
-
-                    b.Property<int>("enderecoId");
-
-                    b.Property<string>("foto")
-                        .IsRequired();
-
-                    b.Property<string>("senha");
+                    b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AreaAtuacaoId");
 
-                    b.HasIndex("AreaInteresseId");
+                    b.HasIndex("EnderecoId");
 
-                    b.HasIndex("enderecoId");
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.Endereco", b =>
+            modelBuilder.Entity("eaton.agir.domain.Entities.EnderecoDomain", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -92,8 +83,12 @@ namespace eaton.agir.repository.Migrations
                     b.Property<string>("Bairro")
                         .IsRequired();
 
+                    b.Property<string>("Cep");
+
                     b.Property<string>("Cidade")
                         .IsRequired();
+
+                    b.Property<DateTime>("DataCriacao");
 
                     b.Property<string>("Estado")
                         .IsRequired();
@@ -101,33 +96,66 @@ namespace eaton.agir.repository.Migrations
                     b.Property<string>("Logradouro")
                         .IsRequired();
 
-                    b.Property<int>("Numero");
+                    b.Property<string>("Numero")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("enderecos");
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.EventoDomain", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataCriacao");
 
                     b.Property<DateTime>("DataHora");
 
                     b.Property<string>("Descricao")
                         .IsRequired();
 
+                    b.Property<int>("EmpresaId");
+
+                    b.Property<string>("Foto");
+
+                    b.Property<int>("LocalId");
+
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<int>("localId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("LocalId");
+
+                    b.ToTable("Eventos");
+                });
+
+            modelBuilder.Entity("eaton.agir.domain.Entities.UsuarioDomain", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataCriacao");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Foto")
+                        .IsRequired()
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Senha");
+
+                    b.Property<string>("TipoUsuario")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("localId");
-
-                    b.ToTable("Eventos");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioDomain", b =>
@@ -135,100 +163,117 @@ namespace eaton.agir.repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AreaInteresseId");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasMaxLength(650);
+
                     b.Property<string>("Cpf")
                         .IsRequired();
 
+                    b.Property<DateTime>("DataCriacao");
+
                     b.Property<DateTime>("DataNasc");
+
+                    b.Property<int>("EnderecoId");
 
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<string>("Profissao")
-                        .IsRequired();
-
-                    b.Property<string>("Token")
-                        .IsRequired();
-
-                    b.Property<int>("areaId");
-
-                    b.Property<string>("email");
-
-                    b.Property<string>("foto")
-                        .IsRequired();
-
-                    b.Property<string>("senha");
+                    b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("areaId");
+                    b.HasIndex("AreaInteresseId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("Voluntarios");
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntariosEventosDomain", b =>
+            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioEventoDomain", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Data");
+                    b.Property<DateTime>("DataCriacao");
 
-                    b.Property<int>("eventoId");
+                    b.Property<int>("EventoId");
 
-                    b.Property<int>("voluntarioId");
+                    b.Property<int>("VoluntarioId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("eventoId");
+                    b.HasIndex("EventoId");
 
-                    b.HasIndex("voluntarioId");
+                    b.HasIndex("VoluntarioId");
 
                     b.ToTable("VoluntariosEventos");
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.Empresa", b =>
+            modelBuilder.Entity("eaton.agir.domain.Entities.EmpresaDomain", b =>
                 {
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaAtuacao")
                         .WithMany()
                         .HasForeignKey("AreaAtuacaoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "AreaInteresse")
+                    b.HasOne("eaton.agir.domain.Entities.EnderecoDomain", "Endereco")
                         .WithMany()
-                        .HasForeignKey("AreaInteresseId")
+                        .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("eaton.agir.domain.Entities.Endereco", "endereco")
-                        .WithMany()
-                        .HasForeignKey("enderecoId")
+                    b.HasOne("eaton.agir.domain.Entities.UsuarioDomain", "Usuario")
+                        .WithOne("Empresa")
+                        .HasForeignKey("eaton.agir.domain.Entities.EmpresaDomain", "UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.EventoDomain", b =>
                 {
-                    b.HasOne("eaton.agir.domain.Entities.Endereco", "Local")
+                    b.HasOne("eaton.agir.domain.Entities.EmpresaDomain", "Empresa")
                         .WithMany()
-                        .HasForeignKey("localId")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("eaton.agir.domain.Entities.EnderecoDomain", "Local")
+                        .WithMany()
+                        .HasForeignKey("LocalId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioDomain", b =>
                 {
-                    b.HasOne("eaton.agir.domain.Entities.AreaInteresseDomain", "Area")
+                    b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaInteresse")
                         .WithMany()
-                        .HasForeignKey("areaId")
+                        .HasForeignKey("AreaInteresseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("eaton.agir.domain.Entities.EnderecoDomain", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("eaton.agir.domain.Entities.UsuarioDomain", "Usuario")
+                        .WithOne("Voluntario")
+                        .HasForeignKey("eaton.agir.domain.Entities.VoluntarioDomain", "UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntariosEventosDomain", b =>
+            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioEventoDomain", b =>
                 {
                     b.HasOne("eaton.agir.domain.Entities.EventoDomain", "Evento")
-                        .WithMany("VoluntariosEvento")
-                        .HasForeignKey("eventoId")
+                        .WithMany("VoluntariosEventos")
+                        .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.VoluntarioDomain", "Voluntario")
                         .WithMany("VoluntariosEventos")
-                        .HasForeignKey("voluntarioId")
+                        .HasForeignKey("VoluntarioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

@@ -6,12 +6,9 @@ using eaton.agir.repository.Context;
 using Microsoft.EntityFrameworkCore;
 using eaton.agir.domain.Entities;
 
-
-
 namespace eaton.agir.repository.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
-
     {
         private readonly AgirContext _dbContext;
         public BaseRepository(AgirContext agirContext){

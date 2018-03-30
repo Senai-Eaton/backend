@@ -51,15 +51,11 @@ namespace eaton.agir.webApi.Controllers
                 var volun=_VoluntarioRepository.BuscarPorId(id);
                 if(volun==null)return NotFound();
                 volun.Id=voluntario.Id;
-                volun.areaId=voluntario.areaId;
+                volun.AreaInteresseId=voluntario.AreaInteresseId;
                 volun.Cpf=voluntario.Cpf;
                 volun.DataNasc=voluntario.DataNasc;
-                volun.email=voluntario.email;
-                volun.foto=voluntario.foto;
                 volun.Nome=voluntario.Nome;
-                volun.Profissao=voluntario.Profissao;
-                volun.senha=voluntario.senha;
-                volun.Token=voluntario.Token;
+                volun.Bio=voluntario.Bio;
                 var rs=_VoluntarioRepository.Atualizar(volun);
                 if(rs>0)return Ok(volun);
                 else return BadRequest();

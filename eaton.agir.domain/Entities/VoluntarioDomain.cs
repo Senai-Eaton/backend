@@ -9,16 +9,30 @@ namespace eaton.agir.domain.Entities
     {
         [Required]
         public string Nome { get; set; }
+
         [Required]
+        [DataType(DataType.DateTime)]
         public DateTime DataNasc { get; set; }
+
         [Required]
         public string Cpf { get; set; }
-        [Required]
-        public string Profissao{ get; set; }
-        [ForeignKey("areaId")]
-        public AreaInteresseDomain Area{get;set;}
-        public int areaId{get;set;}
 
-        public ICollection<VoluntariosEventosDomain> VoluntariosEventos { get; set; }        
+        [Required]
+        [StringLength(650, MinimumLength = 50)]
+        public string Bio{ get; set; }
+
+        [ForeignKey("EnderecoId")]
+        public virtual EnderecoDomain Endereco{get;set;}
+        public int EnderecoId{get;set;}
+        
+        [ForeignKey("AreaInteresseId")]
+        public virtual AreaAtuacaoDomain AreaInteresse{get;set;}
+        public int AreaInteresseId{get;set;}
+
+        [ForeignKey("UsuarioId")]
+        public virtual UsuarioDomain Usuario{get;set;}
+        public int UsuarioId {get;set;}
+
+        public virtual ICollection<VoluntarioEventoDomain> VoluntariosEventos { get; set; }        
     }
 }
