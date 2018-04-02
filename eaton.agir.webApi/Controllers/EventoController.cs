@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using eaton.agir.domain.Contracts;
 using eaton.agir.domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace eaton.agir.webApi.Controllers
 {
@@ -13,7 +16,8 @@ namespace eaton.agir.webApi.Controllers
             _EventoRepository=eventoRepository;
         }
         [HttpGet]
-        public IActionResult GetAction(){
+        [Route("listar")]
+        public IActionResult Listar(){
             try{
                 return Ok(_EventoRepository.Listar(new string[]{"Local","VoluntariosEvento.Voluntario"}));
 
@@ -22,7 +26,8 @@ namespace eaton.agir.webApi.Controllers
             }
         }
         [HttpGet("{id}")]
-        public IActionResult GetAction(int id){
+        [Route("buscarporid")]
+        public IActionResult BurcarPorId(int id){
             try{
                 var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","VoluntariosEvento.Voluntario"});
                 if(evento != null) return Ok(evento);
@@ -33,8 +38,17 @@ namespace eaton.agir.webApi.Controllers
         }
         }
         [HttpPost]
+        [Route("cadastrar")]
         public IActionResult Cadastrar([FromBody]EventoDomain evento){
+            List<ModelError> allErrors = new List<ModelError>();
+            
             try{
+
+                if(!ModelState.IsValid){
+                    allErrors = ModelState.Values.SelectMany(v => v.Errors).ToList();
+                    return BadRequest(allErrors);
+                }
+
                 _EventoRepository.Inserir(evento);
                 return Ok(evento);
 
