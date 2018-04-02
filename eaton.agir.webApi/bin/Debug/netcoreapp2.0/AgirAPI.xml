@@ -17,7 +17,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:eaton.agir.webApi.Controllers.UsuarioController.Autenticar(eaton.agir.webApi.ViewModels.Usuario.LoginViewModel)">
+        <member name="M:eaton.agir.webApi.Controllers.UsuarioController.Autenticar(eaton.agir.webApi.ViewModels.Usuario.LoginViewModel,eaton.agir.webApi.util.SigningConfigurations,eaton.agir.webApi.util.TokenConfigurations)">
              <summary>
              Autentica o usuário
              </summary>

@@ -19,7 +19,7 @@ namespace eaton.agir.webApi.Controllers
         [Route("listar")]
         public IActionResult Listar(){
             try{
-                return Ok(_EventoRepository.Listar(new string[]{"Local","VoluntariosEvento.Voluntario"}));
+                return Ok(_EventoRepository.Listar(new string[]{"Local","VoluntariosEventos.Voluntario","Empresa"}));
 
              }catch(System.Exception ex){
                 return BadRequest(ex.Message);
@@ -29,7 +29,7 @@ namespace eaton.agir.webApi.Controllers
         [Route("buscarporid")]
         public IActionResult BurcarPorId(int id){
             try{
-                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","VoluntariosEvento.Voluntario"});
+                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","VoluntariosEventos.Voluntario","Empresa"});
                 if(evento != null) return Ok(evento);
                 else return NotFound();
 

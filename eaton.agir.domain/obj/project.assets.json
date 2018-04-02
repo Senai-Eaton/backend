@@ -77,7 +77,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "Km1C2UBrfS13SlrwQ5fmMhwXDHI4fenaY34dZ4KDSP/F/uESN+Ynusif0lDMeAE33FO7g6d2LTiGRtHNTRoSug==",
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -311,28 +311,30 @@
     ]
   },
   "packageFolders": {
-    "/Users/corujasdev/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\CodeXP\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/corujasdev/visualstudiocode/dotnetcore/senai_alunos/backend/eaton.agir.domain/eaton.agir.domain.csproj",
+      "projectUniqueName": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
       "projectName": "eaton.agir.domain",
-      "projectPath": "/Users/corujasdev/visualstudiocode/dotnetcore/senai_alunos/backend/eaton.agir.domain/eaton.agir.domain.csproj",
-      "packagesPath": "/Users/corujasdev/.nuget/packages/",
-      "outputPath": "/Users/corujasdev/visualstudiocode/dotnetcore/senai_alunos/backend/eaton.agir.domain/obj/",
+      "projectPath": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\eaton.agir.domain.csproj",
+      "packagesPath": "C:\\Users\\CodeXP\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\CodeXP\\Projeto\\eaton.agir.solution\\eaton.agir.domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/corujasdev/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\CodeXP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

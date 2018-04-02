@@ -14,7 +14,7 @@ namespace eaton.agir.webApi.Controllers {
         [HttpGet]
         public IActionResult GetAction () {
             try {
-                return Ok (_empresaRepository.Listar (new string[] { "endereco", "AreaAtuacao", "AreaInteresse" }));
+                return Ok (_empresaRepository.Listar (new string[] { "Endereco", "AreaAtuacao", "Usuario" }));
 
             } catch (System.Exception ex) {
                 return BadRequest (ex.Message);
@@ -24,7 +24,7 @@ namespace eaton.agir.webApi.Controllers {
         [HttpGet ("{id}")]
         public IActionResult GetAction (int id) {
             try {
-                var empre = _empresaRepository.BuscarPorId (id);
+                var empre = _empresaRepository.BuscarPorId (id,new string[]{ "Endereco", "AreaAtuacao", "Usuario" });
                 if (empre != null) return Ok (empre);
                 else return NotFound ();
 

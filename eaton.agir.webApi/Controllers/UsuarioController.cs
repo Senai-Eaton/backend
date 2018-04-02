@@ -1,10 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using eaton.agir.domain.Contracts;
 using eaton.agir.domain.Entities;
+using eaton.agir.webApi.util;
 using eaton.agir.webApi.ViewModels.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.IdentityModel.Tokens;
 
 namespace eaton.agir.webApi.Controllers
 {
@@ -35,12 +41,14 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuario/autenticar")]
+        [Route("api/usuarios/autenticar")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
-        public IActionResult Autenticar([FromBody] LoginViewModel usuario){
+        public IActionResult Autenticar([FromBody] LoginViewModel usuario,[FromServices]SigningConfigurations signingConfigurations,
+            [FromServices]TokenConfigurations tokenConfigurations){
             List<ModelError> allErrors = new List<ModelError>();
+           
 
             try
             {
@@ -53,9 +61,57 @@ namespace eaton.agir.webApi.Controllers
 
                 if(usuario_ == null){
                     return NotFound("E-mail ou Senha inválida");
-                }
+                }     
+                if (usuario_ != null)
+            {
+                ClaimsIdentity identity = new ClaimsIdentity(
+                    new GenericIdentity(usuario_.Id.ToString(), "Login"),
+                    new[] {
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                        new Claim(JwtRegisteredClaimNames.UniqueName, usuario_.Id.ToString()),
+                        new Claim("Nome", usuario_.Voluntario.Nome),
+                        new Claim(ClaimTypes.Email, usuario_.Email),
+                        new Claim(ClaimTypes.Role,usuario_.TipoUsuario)
+                    }
+                );
+                
+                DateTime dataCriacao = DateTime.Now;
+                DateTime dataExpiracao = dataCriacao +
+                    TimeSpan.FromSeconds(tokenConfigurations.Seconds);
 
-                return Ok(usuario_);
+                var handler = new JwtSecurityTokenHandler();
+                var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+                {
+                    Issuer = tokenConfigurations.Issuer,
+                    Audience = tokenConfigurations.Audience,
+                    SigningCredentials = signingConfigurations.SigningCredentials,
+                    Subject = identity,
+                    NotBefore = dataCriacao,
+                    Expires = dataExpiracao
+                });
+                var token = handler.WriteToken(securityToken);
+
+                var retorno = new
+                {
+                    authenticated = true,
+                    created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
+                    expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
+                    accessToken = token,
+                    message = "OK"
+                };
+
+                return Ok(retorno);
+            }
+            else
+            {
+                var retorno = new
+                {
+                    authenticated = false,
+                    message = "Falha ao autenticar"
+                };
+
+                return BadRequest(retorno);
+            }
 
             }
             catch (System.Exception ex)
@@ -99,7 +155,7 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuario/cadastrarempresa")]
+        [Route("api/usuarios/cadastrarempresa")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
@@ -166,7 +222,7 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuario/cadastrarvoluntario")]
+        [Route("api/usuarios/cadastrarvoluntario")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
@@ -186,7 +242,7 @@ namespace eaton.agir.webApi.Controllers
                     allErrors.Add(new ModelError("Email já cadastrado"));
                     return BadRequest(allErrors);
                 }
-
+     
                 _usuarioReposiotry.Inserir(usuario);
                 return Ok(usuario);
 
