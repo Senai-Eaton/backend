@@ -19,24 +19,78 @@ namespace eaton.agir.webApi.Controllers
         [Route("listar")]
         public IActionResult Listar(){
             try{
-                return Ok(_EventoRepository.Listar(new string[]{"Local","VoluntariosEventos.Voluntario","Empresa"}));
+                return Ok(_EventoRepository.Listar(new string[]{"Local","UsuariosEventos.Usuario","Empresa"}));
 
              }catch(System.Exception ex){
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("{id}")]
-        [Route("buscarporid")]
+
+        [HttpGet("buscarporid/{id}")]
+        [Route("buscarporid/{id}")]
         public IActionResult BurcarPorId(int id){
             try{
-                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","VoluntariosEventos.Voluntario","Empresa"});
-                if(evento != null) return Ok(evento);
+                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","UsuariosEventos","Empresa"});
+                if(evento != null)
+                {
+                    
+                    return Ok(evento);
+                }
                 else return NotFound();
 
-            }catch(System.Exception ex){
-            return BadRequest(ex.Message);
+            }
+            catch(System.Exception ex){
+                return BadRequest(ex.Message);
+            }
         }
+
+        [HttpGet("buscarporareatuacao/{id}")]
+        [Route("buscarporareatuacao/{id}")]
+        public IActionResult BurcarEventoPorAreaAtuacao(int id){
+            try{
+                var evento = _EventoRepository.Listar(new string[]{"Local","UsuariosEventos","Empresa","Empresa.AreaAtuacao"}).Where(x => x.Empresa.AreaAtuacaoId == id).ToList();
+                if(evento != null) 
+                {
+                    var retornoEvento = evento.Select(x =>  new {
+                        id = x.Id,
+                        nome = x.Nome,
+                        foto = x.Foto
+                    }).ToList();
+                    return Ok(retornoEvento);
+                }
+                else return NotFound();
+            }
+            catch(System.Exception ex){
+                return BadRequest(ex.Message);
+            }
         }
+
+        /// <summary>
+        /// Cadastra um novo evento
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /cadastrar
+        ///     {
+        ///         "nome" : "nome evento",
+        ///         "descricao" : "descricao evento",
+        ///         "foto" : "foto do evento",
+        ///         "datahora" : "2018-05-07 14:00:00",
+        ///         "empresaid" : 1,
+        ///         "local" : {
+        ///             "logradouro" : "logradouro do evento",
+        ///             "numero" : "numero do evento",
+        ///             "bairro" : "bairro do evento",
+        ///             "cidade" : "cidade do evento",
+        ///             "estado" : "estado do evento",
+        ///             "cep" : "cep do evento"
+        ///         }
+        ///     }
+        /// 
+        /// </remarks>
+        /// <param name="evento"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("cadastrar")]
         public IActionResult Cadastrar([FromBody]EventoDomain evento){

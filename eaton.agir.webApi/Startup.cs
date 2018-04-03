@@ -30,7 +30,7 @@ namespace eaton.agir.webApi {
         
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<AgirContext> (options =>
-                options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection")));
+                options.UseSqlServer (Configuration.GetConnectionString ("SmarterAspConnection")));
                 
                  var signingConfigurations = new SigningConfigurations();
                 services.AddSingleton(signingConfigurations);
@@ -107,6 +107,7 @@ namespace eaton.agir.webApi {
 
             services.AddScoped (typeof (IBaseRepository<>), typeof (BaseRepository<>));
             services.AddScoped (typeof (IUsuarioRepository), typeof (UsuarioRepository));
+            services.AddScoped (typeof (IUsuarioEventoRepository), typeof (UsuarioEventoRepository));
 
         }
 

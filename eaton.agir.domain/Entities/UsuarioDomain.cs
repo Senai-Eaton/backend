@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace eaton.agir.domain.Entities
@@ -11,7 +12,7 @@ namespace eaton.agir.domain.Entities
         public string Senha { get; set; }
         
         [Required]
-        [StringLength(250, MinimumLength = 10)]
+        [StringLength(250)]
         public string Foto {get;set;}
         
         [Required]
@@ -19,5 +20,7 @@ namespace eaton.agir.domain.Entities
         public string TipoUsuario {get;set;}
         public virtual EmpresaDomain Empresa { get; set; }
         public virtual VoluntarioDomain Voluntario { get; set; }
+        public virtual ICollection<UsuarioEventoDomain> UsuariosEventos { get; set; }        
+
     }
 }

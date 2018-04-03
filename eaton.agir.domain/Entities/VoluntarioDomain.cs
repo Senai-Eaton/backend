@@ -18,7 +18,7 @@ namespace eaton.agir.domain.Entities
         public string Cpf { get; set; }
 
         [Required]
-        [StringLength(650, MinimumLength = 50)]
+        [StringLength(650)]
         public string Bio{ get; set; }
 
         [ForeignKey("EnderecoId")]
@@ -33,6 +33,5 @@ namespace eaton.agir.domain.Entities
         public virtual UsuarioDomain Usuario{get;set;}
         public int UsuarioId {get;set;}
 
-        public virtual ICollection<VoluntarioEventoDomain> VoluntariosEventos { get; set; }        
     }
 }
