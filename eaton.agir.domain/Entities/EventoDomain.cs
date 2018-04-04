@@ -27,6 +27,6 @@ namespace eaton.agir.domain.Entities
         public virtual EmpresaDomain Empresa { get; set; }
         public int EmpresaId{get;set;}
         
-        public virtual ICollection<VoluntarioEventoDomain> VoluntariosEventos { get; set; }
+        public virtual ICollection<UsuarioEventoDomain> UsuariosEventos { get; set; }
     }
 }

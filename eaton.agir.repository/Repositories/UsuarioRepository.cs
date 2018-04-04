@@ -18,16 +18,16 @@ namespace eaton.agir.repository.Repositories
 
         
 
-        public UsuarioDomain Autenticar(string email, string senha)
+        public UsuarioDomain Autenticar(string email, string senha, string[] includes = null)
         {
             try
             {
-                UsuarioDomain usuario = _context.Usuarios.Include("Voluntario")
-                                        .Include("Empresa")
-                                        .Include("Empresa.Eventos")
-                                        .FirstOrDefault(x => x.Email.ToLower() == email.ToLower() && x.Senha == senha);
 
-                return usuario;
+                string[] includes_ = new string[]{"Voluntario","Empresa"};
+
+                var query = _context.Usuarios.Include("Voluntario").Include("Empresa").Where(x => x.Email.ToLower() == email.ToLower() && x.Senha == senha);
+
+                return query.FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -39,7 +39,15 @@ namespace eaton.agir.repository.Repositories
         {
             try
             {
-                return _context.Usuarios.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
+                string[] includes = new string[]{"Voluntario","Voluntario.VoluntariosEventos","Voluntario.VoluntariosEventos.Evento","Empresa","Empresa.Evento"};
+
+                var query = _context.Usuarios.AsQueryable();
+
+                foreach (var item in includes)
+                {
+                    query.Include(item);
+                }
+                return query.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
             }
             catch (Exception ex)
             {

@@ -17,6 +17,34 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:eaton.agir.webApi.Controllers.EventoController.Cadastrar(eaton.agir.domain.Entities.EventoDomain)">
+             <summary>
+             Cadastra um novo evento
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /cadastrar
+                 {
+                     "nome" : "nome evento",
+                     "descricao" : "descricao evento",
+                     "foto" : "foto do evento",
+                     "datahora" : "2018-05-07 14:00:00",
+                     "empresaid" : 1,
+                     "local" : {
+                         "logradouro" : "logradouro do evento",
+                         "numero" : "numero do evento",
+                         "bairro" : "bairro do evento",
+                         "cidade" : "cidade do evento",
+                         "estado" : "estado do evento",
+                         "cep" : "cep do evento"
+                     }
+                 }
+             
+             </remarks>
+             <param name="evento"></param>
+             <returns></returns>
+        </member>
         <member name="M:eaton.agir.webApi.Controllers.UsuarioController.Autenticar(eaton.agir.webApi.ViewModels.Usuario.LoginViewModel,eaton.agir.webApi.util.SigningConfigurations,eaton.agir.webApi.util.TokenConfigurations)">
              <summary>
              Autentica o usuário
@@ -26,8 +54,8 @@
             
                  POST /api/usuario/autenticar
                  {
-                    "email": "email@email.com",
-                    "senha": "12345"
+                     "email": "email@email.com",
+                     "senha": "12345"
                  }
             
              </remarks>
@@ -48,7 +76,7 @@
                      "email": "email@email.com",
                      "senha": "12345",
                      "foto" : "urldafoto",
-                     "tipousuario" : "Ong",
+                     "tipousuario" : "Empresa",
                      "empresa":{
                          "nome" : "nome da empresa",
                          "descricao" : "descricao da empresa deve ter no minimo 50 caracteres (até 650 caracteres)",
@@ -86,7 +114,7 @@
                      "tipousuario" : "Voluntario",
                      "voluntario":{
                          "nome" : "nome da empresa",
-                         "datanasc" : "1978-10-28"               
+                         "datanasc" : "1978-10-28",               
                          "cpf" : "543.653.765-665",
                          "areainteresseid" : 1,
                          "bio" : "Descrição da Bio",

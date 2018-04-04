@@ -17,7 +17,7 @@ namespace eaton.agir.repository.Context
         public DbSet<EmpresaDomain> Empresas {get;set;}
         public DbSet<EventoDomain> Eventos {get;set;}
         public DbSet<VoluntarioDomain> Voluntarios {get;set;}
-        public DbSet<VoluntarioEventoDomain> VoluntariosEventos{get;set;}
+        public DbSet<UsuarioEventoDomain> UsuariosEventos{get;set;}
         public DbSet<UsuarioDomain> Usuarios{get;set;}
         
         protected  override void OnModelCreating (ModelBuilder modelBuilder){
@@ -32,7 +32,7 @@ namespace eaton.agir.repository.Context
             modelBuilder.Entity<EmpresaDomain>().ToTable("Empresas");
             modelBuilder.Entity<EventoDomain>().ToTable("Eventos");
             modelBuilder.Entity<VoluntarioDomain>().ToTable("Voluntarios");
-            modelBuilder.Entity<VoluntarioEventoDomain>().ToTable("VoluntariosEventos");
+            modelBuilder.Entity<UsuarioEventoDomain>().ToTable("UsuariosEventos");
             modelBuilder.Entity<UsuarioDomain>().ToTable("Usuarios");
 
             base.OnModelCreating(modelBuilder);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,15 +7,15 @@ namespace eaton.agir.domain.Entities
     public class EmpresaDomain : BaseDomain
     {
         [Required]
-        [StringLength(150, MinimumLength =3)]
+        [StringLength(150)]
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(650, MinimumLength = 10)]
+        [StringLength(650)]
         public string Descricao{ get; set; }
 
         [Required]
-        [StringLength(150, MinimumLength =3)]
+        [StringLength(150)]
         public string RazaoSocial { get; set; }
 
         [ForeignKey("AreaAtuacaoId")]
@@ -33,6 +34,6 @@ namespace eaton.agir.domain.Entities
         [Required]
         public string Cnpj { get; set; }
 
-
+        public ICollection<EventoDomain> Eventos { get; set; }
     }
 }

@@ -158,6 +158,26 @@ namespace eaton.agir.repository.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("eaton.agir.domain.Entities.UsuarioEventoDomain", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataCriacao");
+
+                    b.Property<int>("EventoId");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UsuariosEventos");
+                });
+
             modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioDomain", b =>
                 {
                     b.Property<int>("Id")
@@ -195,26 +215,6 @@ namespace eaton.agir.repository.Migrations
                     b.ToTable("Voluntarios");
                 });
 
-            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioEventoDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DataCriacao");
-
-                    b.Property<int>("EventoId");
-
-                    b.Property<int>("VoluntarioId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventoId");
-
-                    b.HasIndex("VoluntarioId");
-
-                    b.ToTable("VoluntariosEventos");
-                });
-
             modelBuilder.Entity("eaton.agir.domain.Entities.EmpresaDomain", b =>
                 {
                     b.HasOne("eaton.agir.domain.Entities.AreaAtuacaoDomain", "AreaAtuacao")
@@ -236,13 +236,26 @@ namespace eaton.agir.repository.Migrations
             modelBuilder.Entity("eaton.agir.domain.Entities.EventoDomain", b =>
                 {
                     b.HasOne("eaton.agir.domain.Entities.EmpresaDomain", "Empresa")
-                        .WithMany()
+                        .WithMany("Eventos")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("eaton.agir.domain.Entities.EnderecoDomain", "Local")
                         .WithMany()
                         .HasForeignKey("LocalId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("eaton.agir.domain.Entities.UsuarioEventoDomain", b =>
+                {
+                    b.HasOne("eaton.agir.domain.Entities.EventoDomain", "Evento")
+                        .WithMany("UsuariosEventos")
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("eaton.agir.domain.Entities.UsuarioDomain", "Voluntario")
+                        .WithMany("UsuariosEventos")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -261,19 +274,6 @@ namespace eaton.agir.repository.Migrations
                     b.HasOne("eaton.agir.domain.Entities.UsuarioDomain", "Usuario")
                         .WithOne("Voluntario")
                         .HasForeignKey("eaton.agir.domain.Entities.VoluntarioDomain", "UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("eaton.agir.domain.Entities.VoluntarioEventoDomain", b =>
-                {
-                    b.HasOne("eaton.agir.domain.Entities.EventoDomain", "Evento")
-                        .WithMany("VoluntariosEventos")
-                        .HasForeignKey("EventoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("eaton.agir.domain.Entities.VoluntarioDomain", "Voluntario")
-                        .WithMany("VoluntariosEventos")
-                        .HasForeignKey("VoluntarioId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

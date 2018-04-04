@@ -31,8 +31,8 @@ namespace eaton.agir.webApi.Controllers
         ///
         ///     POST /api/usuario/autenticar
         ///     {
-        ///        "email": "email@email.com",
-        ///        "senha": "12345"
+        ///         "email": "email@email.com",
+        ///         "senha": "12345"
         ///     }
         ///
         /// </remarks>
@@ -41,7 +41,7 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuarios/autenticar")]
+        [Route("api/usuario/autenticar")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
@@ -57,61 +57,71 @@ namespace eaton.agir.webApi.Controllers
                     return BadRequest(allErrors);
                 }
 
-                UsuarioDomain usuario_ = _usuarioReposiotry.Autenticar(usuario.Email, usuario.Senha);
+                
+                List<UsuarioDomain> lsUsuarios = _usuarioReposiotry.Listar(new string[]{"Voluntario", "Empresa"}).ToList();
+
+                UsuarioDomain usuario_ = lsUsuarios.FirstOrDefault(x => x.Email.ToLower() == usuario.Email.ToLower() && x.Senha == usuario.Senha); // _usuarioReposiotry.Autenticar(usuario.Email, usuario.Senha);
 
                 if(usuario_ == null){
                     return NotFound("E-mail ou Senha inválida");
                 }     
+
                 if (usuario_ != null)
-            {
-                ClaimsIdentity identity = new ClaimsIdentity(
-                    new GenericIdentity(usuario_.Id.ToString(), "Login"),
-                    new[] {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, usuario_.Id.ToString()),
-                        new Claim("Nome", usuario_.Voluntario.Nome),
-                        new Claim(ClaimTypes.Email, usuario_.Email),
-                        new Claim(ClaimTypes.Role,usuario_.TipoUsuario)
-                    }
-                );
+                {
+                    ClaimsIdentity identity = new ClaimsIdentity(
+                        new GenericIdentity(usuario_.Id.ToString(), "Login"),
+                        new[] {
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                            new Claim(JwtRegisteredClaimNames.UniqueName, usuario_.Id.ToString()),
+                            new Claim("Nome", (usuario_.TipoUsuario == "Empresa" ? usuario_.Empresa.Nome : usuario_.Voluntario.Nome)),
+                            new Claim(ClaimTypes.Email, usuario_.Email),
+                            new Claim(ClaimTypes.Role,usuario_.TipoUsuario),
+                            new Claim("UserId", usuario_.Id.ToString())
+                        }
+                    );
                 
-                DateTime dataCriacao = DateTime.Now;
-                DateTime dataExpiracao = dataCriacao +
-                    TimeSpan.FromSeconds(tokenConfigurations.Seconds);
 
-                var handler = new JwtSecurityTokenHandler();
-                var securityToken = handler.CreateToken(new SecurityTokenDescriptor
-                {
-                    Issuer = tokenConfigurations.Issuer,
-                    Audience = tokenConfigurations.Audience,
-                    SigningCredentials = signingConfigurations.SigningCredentials,
-                    Subject = identity,
-                    NotBefore = dataCriacao,
-                    Expires = dataExpiracao
-                });
-                var token = handler.WriteToken(securityToken);
+                    var handler = new JwtSecurityTokenHandler();
+                    var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+                    {
+                        Issuer = tokenConfigurations.Issuer,
+                        Audience = tokenConfigurations.Audience,
+                        SigningCredentials = signingConfigurations.SigningCredentials,
+                        Subject = identity
+                    });
 
-                var retorno = new
-                {
-                    authenticated = true,
-                    created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    accessToken = token,
-                    message = "OK"
-                };
+
+
+                    var token = handler.WriteToken(securityToken);
+
+                    var retornoUsuario = new {
+                        nome = (usuario_.TipoUsuario == "Empresa" ? usuario_.Empresa.Nome : usuario_.Voluntario.Nome),
+                        email = usuario_.Email,
+                        foto = usuario_.Foto,
+                        areaid = (usuario_.TipoUsuario == "Empresa" ? usuario_.Empresa.AreaAtuacaoId : usuario_.Voluntario.AreaInteresseId)
+                    };
+
+                    var retorno = new
+                    {
+                        authenticated = true,
+                        accessToken = token,
+                        message = "OK",
+                        tipousuario = usuario_.TipoUsuario,
+                        usuario = retornoUsuario
+                    };
 
                 return Ok(retorno);
-            }
-            else
-            {
-                var retorno = new
+                }
+                else
                 {
-                    authenticated = false,
-                    message = "Falha ao autenticar"
-                };
+                    var retorno = new
+                    {
+                        authenticated = false,
+                        message = "Falha ao autenticar"
+                    };
 
-                return BadRequest(retorno);
-            }
+                    return BadRequest(retorno);
+                }
 
             }
             catch (System.Exception ex)
@@ -132,7 +142,7 @@ namespace eaton.agir.webApi.Controllers
         ///         "email": "email@email.com",
         ///         "senha": "12345",
         ///         "foto" : "urldafoto",
-        ///         "tipousuario" : "Ong",
+        ///         "tipousuario" : "Empresa",
         ///         "empresa":{
         ///             "nome" : "nome da empresa",
         ///             "descricao" : "descricao da empresa deve ter no minimo 50 caracteres (até 650 caracteres)",
@@ -155,7 +165,7 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuarios/cadastrarempresa")]
+        [Route("api/usuario/cadastrarempresa")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
@@ -202,7 +212,7 @@ namespace eaton.agir.webApi.Controllers
         ///         "tipousuario" : "Voluntario",
         ///         "voluntario":{
         ///             "nome" : "nome da empresa",
-        ///             "datanasc" : "1978-10-28"               
+        ///             "datanasc" : "1978-10-28",               
         ///             "cpf" : "543.653.765-665",
         ///             "areainteresseid" : 1,
         ///             "bio" : "Descrição da Bio",
@@ -222,7 +232,7 @@ namespace eaton.agir.webApi.Controllers
         /// <response code="404">Retorna uma string com o erro</response> 
         /// <response code="400">Retorna uma lista de erros</response> 
         [HttpPost]
-        [Route("api/usuarios/cadastrarvoluntario")]
+        [Route("api/usuario/cadastrarvoluntario")]
         [ProducesResponseType(typeof(UsuarioDomain), 201)]
         [ProducesResponseType(typeof(List<ModelError>), 400)]
         [ProducesResponseType(typeof(string), 404)]
