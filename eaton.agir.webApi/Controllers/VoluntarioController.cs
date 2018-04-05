@@ -15,7 +15,7 @@ namespace eaton.agir.webApi.Controllers
         [HttpGet]
         public IActionResult GetAction(){
             try{
-                return Ok(_VoluntarioRepository.Listar(new string[]{"Endereco","AreaInteresse","Usuario","VoluntariosEventos.Evento"}));
+                return Ok(_VoluntarioRepository.Listar(new string[]{"Endereco","AreaInteresse","Usuario"}));
 
 
             }catch(System.Exception ex){
@@ -26,7 +26,7 @@ namespace eaton.agir.webApi.Controllers
 
         public IActionResult GetAction(int id){
             try{
-                var voluntario= _VoluntarioRepository.BuscarPorId(id,new string[]{"Endereco","AreaInteresse","Usuario","VoluntariosEventos.Evento"});
+                var voluntario= _VoluntarioRepository.BuscarPorId(id,new string[]{"Endereco","AreaInteresse","Usuario"});
                 if (voluntario != null) return Ok(voluntario);
                 else return NotFound();
 
