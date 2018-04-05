@@ -95,6 +95,7 @@ namespace eaton.agir.webApi.Controllers
                     var token = handler.WriteToken(securityToken);
 
                     var retornoUsuario = new {
+                        id = usuario_.Id,
                         nome = (usuario_.TipoUsuario == "Empresa" ? usuario_.Empresa.Nome : usuario_.Voluntario.Nome),
                         email = usuario_.Email,
                         foto = usuario_.Foto,
@@ -261,6 +262,73 @@ namespace eaton.agir.webApi.Controllers
             {
                 allErrors.Add(new ModelError(ex));
                 return BadRequest(allErrors);
+            }
+        }
+
+        [HttpGet("api/usuario/buscaporid/{id}")]
+        [Route("api/usuario/buscaporid/{id}")]
+        public IActionResult BuscaPorId(int id){
+            try
+            {
+                UsuarioDomain usuario = _usuarioReposiotry.Listar(new string[]{"Voluntario", "Voluntario.Endereco", "Empresa", "Empresa.Endereco"}).FirstOrDefault(x => x.Id == id);
+
+                if(usuario == null)
+                    return NotFound("Usuário não encontrado");
+
+                
+                if(usuario.TipoUsuario == "Empresa"){
+                    var retornoEmpresa = new  {
+                        email = usuario.Email,
+                        foto = usuario.Foto,
+                        tipousuario = usuario.TipoUsuario,
+                        empresa = new {
+                            nome = usuario.Empresa.Nome,
+                            descricao = usuario.Empresa.Descricao,
+                            razaosocial = usuario.Empresa.RazaoSocial,
+                            areaatuacaoid = usuario.Empresa.AreaAtuacaoId,
+                            cnpj = usuario.Empresa.Cnpj,
+                            endereco = new {
+                                logradouro = usuario.Empresa.Endereco.Logradouro,
+                                numero = usuario.Empresa.Endereco.Numero,
+                                bairro = usuario.Empresa.Endereco.Bairro,
+                                cidade = usuario.Empresa.Endereco.Cidade,
+                                estado = usuario.Empresa.Endereco.Estado,
+                                cep = usuario.Empresa.Endereco.Cep
+                            }
+                        }
+                    };
+
+                    return Ok(retornoEmpresa);
+                }
+                else{
+                    var retornoVoluntario = new  {
+                        email = usuario.Email,
+                        foto = usuario.Foto,
+                        tipousuario = usuario.TipoUsuario,
+                        voluntario = new {
+                            nome = usuario.Voluntario.Nome,
+                            datanasc = usuario.Voluntario.DataNasc,
+                            cpf = usuario.Voluntario.Cpf,
+                            areainteresseid = usuario.Voluntario.AreaInteresseId,
+                            bio = usuario.Voluntario.Bio,
+                            endereco = new {
+                                logradouro = usuario.Voluntario.Endereco.Logradouro,
+                                numero = usuario.Voluntario.Endereco.Numero,
+                                bairro = usuario.Voluntario.Endereco.Bairro,
+                                cidade = usuario.Voluntario.Endereco.Cidade,
+                                estado = usuario.Voluntario.Endereco.Estado,
+                                cep = usuario.Voluntario.Endereco.Cep
+                            }
+                        }
+                    };
+
+                    return Ok(retornoVoluntario);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -2,6 +2,7 @@ using System.Linq;
 using eaton.agir.domain.Contracts;
 using eaton.agir.domain.Entities;
 using eaton.agir.repository.Repositories;
+using eaton.agir.webApi.ViewModels.UsuarioEvento;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eaton.agir.webApi.Controllers
@@ -9,8 +10,8 @@ namespace eaton.agir.webApi.Controllers
     [Route("api/usuarioseventos")]
     public class UsuariosEventosController : Controller
     {
-        public UsuarioEventoRepository _usuariosEventosRepository;
-        public UsuariosEventosController(UsuarioEventoRepository usuariosEventosRepository)
+        IUsuarioEventoRepository _usuariosEventosRepository;
+        public UsuariosEventosController(IUsuarioEventoRepository usuariosEventosRepository)
         {
             _usuariosEventosRepository = usuariosEventosRepository;
         }
@@ -19,13 +20,17 @@ namespace eaton.agir.webApi.Controllers
         {
             try
             {
-                return Ok(_usuariosEventosRepository.Listar(new string[]{"Voluntario","Empresa"}));
+                return Ok(_usuariosEventosRepository.Listar(new string[]{"Usuario.Voluntario","Usuario.Empresa","Evento"}));
             }
             catch (System.Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+        
+
+
         [HttpGet("buscareventoporidusuario/{id}")]
         [Route("buscareventoporidusuario/{id}")]
         public IActionResult BuscarEventoPorIdUsuario(int id)
@@ -52,22 +57,46 @@ namespace eaton.agir.webApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Cadastra um usuário no evento
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /cadastrar
+        ///     {
+        ///         "idUsuario" : 1,
+        ///         "idEvento" : 2
+        ///     }
+        /// 
+        /// </remarks>
+        /// <param name="model">Tipo de dados a serem passados</param>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult Cadastrar([FromBody]UsuarioEventoDomain model)
+        [Route("cadastrar")]
+        public IActionResult Cadastrar([FromBody]CadastrarUsuarioEventoViewModel model)
         {
             try
             {
-                if(_usuariosEventosRepository.UsuarioEventoExiste(model.UsuarioId, model.EventoId));
-                    return BadRequest("Usuário já cadastrado para o evento");
+                if(_usuariosEventosRepository.UsuarioEventoExiste(model.idUsuario, model.idEvento))
+                    return BadRequest("Usuário já cadastrado para este evento");
 
-                _usuariosEventosRepository.Inserir(model);
-                return Ok(model);
+                UsuarioEventoDomain usuarioEvento = new UsuarioEventoDomain();
+                usuarioEvento.UsuarioId = model.idUsuario;
+                usuarioEvento.EventoId = model.idEvento;
+
+                _usuariosEventosRepository.Inserir(usuarioEvento);
+                return Ok(usuarioEvento);
             }
             catch (System.Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
+
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, [FromBody]UsuarioEventoDomain voluntarios)
         {

@@ -7,7 +7,6 @@ namespace eaton.agir.domain.Entities
     {
 
         [Required]
-        
         public string Nome { get; set; }
         
 
