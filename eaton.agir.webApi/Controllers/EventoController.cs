@@ -19,7 +19,24 @@ namespace eaton.agir.webApi.Controllers
         [Route("listar")]
         public IActionResult Listar(){
             try{
-                return Ok(_EventoRepository.Listar(new string[]{"Local","UsuariosEventos.Usuario","Empresa"}));
+                var eventos = _EventoRepository.Listar(new string[]{"Local","UsuariosEventos.Usuario","Empresa"});
+
+                var retornoEvento = eventos.Select(evento => new {
+                        nome = evento.Nome,
+                        descricao = evento.Descricao,
+                        foto = evento.Foto,
+                        datahora = evento.DataHora,
+                        local = new {
+                            logradouro = evento.Local.Logradouro,
+                            numero = evento.Local.Numero,
+                            bairro = evento.Local.Bairro,
+                            cidade = evento.Local.Cidade,
+                            estado = evento.Local.Estado,
+                            cep = evento.Local.Cep
+                        }
+                    }).ToList();
+
+                return Ok(retornoEvento);
 
              }catch(System.Exception ex){
                 return BadRequest(ex.Message);
@@ -33,8 +50,50 @@ namespace eaton.agir.webApi.Controllers
                 var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","UsuariosEventos","Empresa"});
                 if(evento != null)
                 {
-                    
-                    return Ok(evento);
+                    var retornoEvento = new {
+                        nome = evento.Nome,
+                        descricao = evento.Descricao,
+                        foto = evento.Foto,
+                        datahora = evento.DataHora,
+                        local = new {
+                            logradouro = evento.Local.Logradouro,
+                            numero = evento.Local.Numero,
+                            bairro = evento.Local.Bairro,
+                            cidade = evento.Local.Cidade,
+                            estado = evento.Local.Estado,
+                            cep = evento.Local.Cep
+                        }
+                    };
+                    return Ok(retornoEvento);
+                }
+                else return NotFound();
+
+            }
+            catch(System.Exception ex){
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("participantes/{id}")]
+        [Route("participantes/{id}")]
+        public IActionResult Participantes(int id){
+            try{
+                var evento = _EventoRepository.BuscarPorId(id,new string[]{"Local","UsuariosEventos", "UsuariosEventos.Usuario", "UsuariosEventos.Usuario.Empresa","UsuariosEventos.Usuario.Voluntario","Empresa"});
+
+                if(evento != null)
+                {
+                    var retornoEvento = new {
+                        quantidade = evento.UsuariosEventos.Count,
+                        usuarios = evento.UsuariosEventos.Select(x => new {
+                            id = x.Id,
+                            nome = (x.Usuario.TipoUsuario == "Empresa" ? x.Usuario.Empresa.Nome : x.Usuario.Voluntario.Nome),
+                            email = x.Usuario.Email,
+                            foto = x.Usuario.Foto,
+                            tipousuario = x.Usuario.TipoUsuario
+                        }).ToArray()
+                    }; 
+
+                    return Ok(retornoEvento);
                 }
                 else return NotFound();
 

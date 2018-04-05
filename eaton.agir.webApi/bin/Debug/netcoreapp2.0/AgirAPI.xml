@@ -134,5 +134,22 @@
              <response code="404">Retorna uma string com o erro</response> 
              <response code="400">Retorna uma lista de erros</response> 
         </member>
+        <member name="M:eaton.agir.webApi.Controllers.UsuariosEventosController.Cadastrar(eaton.agir.webApi.ViewModels.UsuarioEvento.CadastrarUsuarioEventoViewModel)">
+             <summary>
+             Cadastra um usuário no evento
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /cadastrar
+                 {
+                     "idUsuario" : 1,
+                     "idEvento" : 2
+                 }
+             
+             </remarks>
+             <param name="model">Tipo de dados a serem passados</param>
+             <returns></returns>
+        </member>
     </members>
 </doc>

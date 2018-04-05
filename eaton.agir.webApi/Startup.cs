@@ -99,6 +99,7 @@ namespace eaton.agir.webApi {
 
                 c.IncludeXmlComments (xmlPath);
             });
+
             services.AddCors (o => o.AddPolicy ("MyPolicy", builder => {
                 builder.AllowAnyOrigin ()
                     .AllowAnyMethod ()
@@ -106,8 +107,9 @@ namespace eaton.agir.webApi {
             }));
 
             services.AddScoped (typeof (IBaseRepository<>), typeof (BaseRepository<>));
+                        services.AddScoped (typeof (IUsuarioEventoRepository), typeof (UsuarioEventoRepository));
+
             services.AddScoped (typeof (IUsuarioRepository), typeof (UsuarioRepository));
-            services.AddScoped (typeof (IUsuarioEventoRepository), typeof (UsuarioEventoRepository));
 
         }
 
