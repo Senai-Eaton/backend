@@ -23,6 +23,38 @@ namespace eaton.agir.webApi.Controllers
             _usuarioReposiotry = usuarioReposiotry;
         }
 
+
+
+        [Route("api/usuario/deslogar")]
+        [ProducesResponseType(typeof(List<ModelError>), 400)]
+        [ProducesResponseType(typeof(string), 404)]
+        public object Deslogar([FromBody] LoginViewModel usuario,[FromServices]SigningConfigurations signingConfigurations,
+            [FromServices]TokenConfigurations tokenConfigurations){
+            List<ModelError> allErrors = new List<ModelError>();
+            try{
+                var handler = new JwtSecurityTokenHandler();
+                    var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+                    {
+                        Issuer =null,
+                        Audience = null,
+                        SigningCredentials = null,
+                        Subject =null
+                    });
+                 var token = handler.WriteToken(securityToken);
+                return Ok(Json("Deslogado"));
+
+
+            }catch (Exception ex){
+                return BadRequest(ex.Message);
+            }}
+           
+
+
+
+
+
+
+
         /// <summary>
         /// Autentica o usuário
         /// </summary>
@@ -59,6 +91,7 @@ namespace eaton.agir.webApi.Controllers
 
                 
                 List<UsuarioDomain> lsUsuarios = _usuarioReposiotry.Listar(new string[]{"Voluntario", "Empresa"}).ToList();
+
 
                 UsuarioDomain usuario_ = lsUsuarios.FirstOrDefault(x => x.Email.ToLower() == usuario.Email.ToLower() && x.Senha == usuario.Senha); // _usuarioReposiotry.Autenticar(usuario.Email, usuario.Senha);
 
@@ -186,6 +219,7 @@ namespace eaton.agir.webApi.Controllers
                     allErrors.Add(new ModelError("Email já cadastrado"));
                     return BadRequest(allErrors);
                 }
+               // usuario.Senha=Hashcode.getHash(usuario);
 
                 _usuarioReposiotry.Inserir(usuario);
                 return Ok(usuario);

@@ -16,6 +16,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="1.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="2.1.0-preview1-final" />
   </ItemGroup>
   <ItemGroup>
   <ProjectReference Include="..\eaton.agir.repository\eaton.agir.repository.csproj" />
